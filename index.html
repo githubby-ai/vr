@@ -16,22 +16,31 @@
         <a-sky color="#ECECEC"></a-sky>
         <a-video id="video-plane" src="#video" position="0 1 -3" width="4" height="2"></a-video>
 
-        <a-entity id="play-button" position="0 0.5 -2.9" geometry="primitive: box; depth: 0.1; height: 0.5; width: 1.5;" material="color: white; opacity: 0.8;">
+        <a-entity id="play-button" position="0 0.5 -2.9" geometry="primitive: box; depth: 0.1; height: 0.5; width: 1.5;" material="color: white; opacity: 0.8;" class="clickable">
             <a-text value="Play Video" align="center" position="0 0 0.01" color="#000"></a-text>
         </a-entity>
+
+        <!-- Cursor for VR interaction -->
+        <a-entity cursor="fuse: false; rayOrigin: mouse" position="0 0 -0.5"></a-entity>
     </a-scene>
 
     <script>
         const video = document.getElementById('video');
         const playButton = document.getElementById('play-button');
 
+        // Make play button interactive
         playButton.addEventListener('click', () => {
             video.play();
             playButton.setAttribute('visible', 'false'); // Hide the button after playing
         });
 
-        // Ensure the button is interactive
-        playButton.setAttribute('class', 'clickable');
+        playButton.addEventListener('mouseenter', () => {
+            playButton.setAttribute('material', 'color: #aaa'); // Change color on hover
+        });
+
+        playButton.addEventListener('mouseleave', () => {
+            playButton.setAttribute('material', 'color: white'); // Reset color when not hovering
+        });
     </script>
 </body>
 </html>
