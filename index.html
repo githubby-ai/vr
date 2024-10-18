@@ -4,31 +4,21 @@
     <title>3D Room with Video</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <style>
-        /* Center the button */
-        #play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.8);
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            z-index: 10;
-        }
+        body { margin: 0; }
     </style>
 </head>
 <body>
-    <button id="play-button">Play Video</button>
-    
     <a-scene>
         <a-assets>
-            <video id="video" src="kagrua.mp4" loop muted autoplay crossorigin="anonymous" preload="auto"></video>
+            <video id="video" src="kagrua.mp4" loop muted crossorigin="anonymous" preload="auto"></video>
         </a-assets>
 
         <a-sky color="#ECECEC"></a-sky>
         <a-video id="video-plane" src="#video" position="0 1 -3" width="4" height="2"></a-video>
+
+        <a-entity id="play-button" position="0 0.5 -2.9" geometry="primitive: box; depth: 0.1; height: 0.5; width: 1.5;" material="color: white; opacity: 0.8;">
+            <a-text value="Play Video" align="center" position="0 0 0.01" color="#000"></a-text>
+        </a-entity>
     </a-scene>
 
     <script>
@@ -37,8 +27,11 @@
 
         playButton.addEventListener('click', () => {
             video.play();
-            playButton.style.display = 'none';
+            playButton.setAttribute('visible', 'false'); // Hide the button after playing
         });
+
+        // Ensure the button is interactive
+        playButton.setAttribute('class', 'clickable');
     </script>
 </body>
 </html>
