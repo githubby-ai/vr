@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3D Room with Video</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+        body { margin: 0; }
+    </style>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <video id="video" src="kagrua.mp4" loop muted crossorigin="anonymous" preload="auto"></video>
+        </a-assets>
+
+        <a-sky color="#ECECEC"></a-sky>
+        <a-video id="video-plane" src="#video" position="0 1 -3" width="4" height="2"></a-video>
+        
+        <a-box id="play-button" position="0 1 -2.95" depth="0.1" height="0.5" width="1.5" color="white" opacity="0.8"></a-box>
+        <a-text value="Play Video" align="center" position="0 0 0.01" color="#000"></a-text>
+    </a-scene>
+
+    <script>
+        const video = document.getElementById('video');
+        const playButton = document.getElementById('play-button');
+
+        playButton.addEventListener('click', () => {
+            video.play();
+            playButton.setAttribute('visible', 'false'); // Hide the button after playing
+        });
+
+        // Add cursor interaction
+        playButton.setAttribute('class', 'clickable');
+
+        // Ensure the cursor is visible for VR headsets
+        const cursor = document.createElement('a-cursor');
+        cursor.setAttribute('position', '0 0 -0.1'); // Adjust position as needed
+        playButton.appendChild(cursor);
+    </script>
+</body>
+</html>
